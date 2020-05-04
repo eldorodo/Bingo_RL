@@ -34,11 +34,11 @@ if __name__=="__main__":
                     break
                 else:
                     pl_num = int(pl_num)
-                    obs, rewards, done, num_cut, bingo_curr, curr_strike = bingo_env_play.step(pl_num,"play")
+                    obs, rewards, done, num_cut, bingo_curr, curr_strike = bingo_env_play.step(pl_num,"player_turn")
                     
             else:
                 action, _states = model.predict(obs)
-                obs, rewards, done, info, curr_bingo, comp_strikes = bingo_env_play.step(action, "no_play")
+                obs, rewards, done, info, curr_bingo, comp_strikes = bingo_env_play.step(action, "comp_turn")
                 if(done == True):
                     print("I won. Game over")
                 else:

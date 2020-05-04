@@ -1,3 +1,4 @@
+import sys
 import math
 import gym
 import random
@@ -7,7 +8,8 @@ from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.common.vec_env import DummyVecEnv
 from stable_baselines import PPO2
 
-from environment import Env     
+
+from environment import Env 
 
 
 if __name__=="__main__":
@@ -16,8 +18,16 @@ if __name__=="__main__":
     model_name = "deep_bingo_" + str(size) + "_model_candidate"
     
     bingo_env = Env(size, num_players = 0, debug = True)
-    model = PPO2(MlpPolicy, bingo_env,verbose = 0)
+    
+    
+    # Use deterministic actions for evaluation
+    eval_callback = EvalCallback(eval_env, best_model_save_path='./logs/',
+                             log_path='./logs/', eval_freq=500,
+                             deterministic=True, render=False)
+    model = PPO2(MlpPolicy, bingo_env,verbose = 0, callback = None)
+    
     timesteps = 3000000
+    timesteps = int(sys.argv[1])
     print("timesteps", timesteps)
     model.learn(total_timesteps=timesteps)
     model.save(model_name)

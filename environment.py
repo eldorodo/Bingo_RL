@@ -7,7 +7,7 @@ from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.common.vec_env import DummyVecEnv
 from stable_baselines import PPO2
  
-HIT_BINGO = 5
+
 
 class Env(gym.Env):
     
@@ -16,6 +16,7 @@ class Env(gym.Env):
     def __init__(self, size, num_players = 0, debug = False):
         super(Env, self).__init__()
         
+        self.HIT_BINGO = 5
         self.size = size
         self.current_step = 0
         self.bingo = np.array(random.sample(range(1,self.size*self.size+1), self.size*self.size))
@@ -108,6 +109,7 @@ class Env(gym.Env):
         
         reward = -1
         add_reward = 0
+        total_cuts = 0
         
         if(mode == 'no_play' or mode == 'comp_turn'): # my turn i.e no players
             total_cuts,add_reward = self._take_action(action)
@@ -120,7 +122,7 @@ class Env(gym.Env):
         
         reward+= add_reward
         
-        if (total_cuts >= HIT_BINGO):
+        if (total_cuts >= self.HIT_BINGO):
             done = True
         else:
             done = False
