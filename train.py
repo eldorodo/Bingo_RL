@@ -19,12 +19,8 @@ if __name__=="__main__":
     
     bingo_env = Env(size, num_players = 0, debug = True)
     
-    
-    # Use deterministic actions for evaluation
-    eval_callback = EvalCallback(eval_env, best_model_save_path='./logs/',
-                             log_path='./logs/', eval_freq=500,
-                             deterministic=True, render=False)
-    model = PPO2(MlpPolicy, bingo_env,verbose = 0, callback = None)
+      
+    model = PPO2(MlpPolicy, bingo_env,verbose = 0)
     
     timesteps = 3000000
     timesteps = int(sys.argv[1])
