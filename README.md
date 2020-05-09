@@ -35,3 +35,5 @@ docker tag bingo:latest bingoregistry.azurecr.io/bingo:latest
 ```
 docker run bingoregistry.azurecr.io/bingo:latest
 ```
+
+###
