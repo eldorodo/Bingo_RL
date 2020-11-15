@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-bingo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-bingo
+  template:
+    metadata:
+      labels:
+        app: azure-bingo
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: azure-bingo
+        image: bingoregistry.azurecr.io/bingo:latest
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 5000
+          name: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-bingo-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: azure-bingo
