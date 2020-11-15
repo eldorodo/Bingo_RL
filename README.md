@@ -40,3 +40,9 @@ docker run bingoregistry.azurecr.io/bingo:latest
 ###
 For running the yaml script in Azure Kubernets service 
 Run the install.sh if on Linux or copy paste everything in cmd line
+
+kubectl commands
+kubectl delete -f bingo.yaml #Deleteing old pods
+kubectl apply -f bingo.yaml #Create the pods and service as specified in the yaml
+kubectl get pods #The kubernetes pods with its status
+kubectl logs -f {podname} #For logs
