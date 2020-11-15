@@ -3,7 +3,11 @@
 # pre-req: install azure CLI
 # pre-req: az aks install-cli
 
+docker build . -t bingo:latest
+
 az login
+
+az acr login --name BingoRegistry
 
 az group create --name Bingo_game --location westus
 

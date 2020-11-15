@@ -28,6 +28,7 @@ docker build . -t bingo:latest
 ```
 az acr login --name BingoRegistry
 docker tag bingo:latest bingoregistry.azurecr.io/bingo:latest
+docker push bingoregistry.azurecr.io/bingo:latest
 ```
 
 3. Run the image from containter registry:
@@ -37,3 +38,5 @@ docker run bingoregistry.azurecr.io/bingo:latest
 ```
 
 ###
+For running the yaml script in Azure Kubernets service 
+Run the install.sh if on Linux or copy paste everything in cmd line
