@@ -55,7 +55,6 @@ class Env(gym.Env):
 
         current_bingo_state = self.bingo_state   
         
-
         return np.array(current_bingo_state)
   
     def _take_action(self, action):
