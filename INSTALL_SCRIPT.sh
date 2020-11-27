@@ -8,6 +8,8 @@ docker build . -t bingo:latest
 az login
 
 az acr login --name BingoRegistry
+docker tag bingo:latest bingoregistry.azurecr.io/bingo:latest
+docker push bingoregistry.azurecr.io/bingo:latest
 
 az group create --name Bingo_game --location westus
 

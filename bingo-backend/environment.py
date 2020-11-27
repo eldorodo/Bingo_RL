@@ -6,8 +6,6 @@ import numpy as np
 from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.common.vec_env import DummyVecEnv
 from stable_baselines import PPO2
- 
-
 
 class Env(gym.Env):
     
@@ -35,6 +33,8 @@ class Env(gym.Env):
           low=np.zeros(self.size*self.size).reshape(self.size,self.size), 
             high=np.ones(self.size*self.size).reshape(self.size,self.size), dtype=np.int32)
         self.debug = debug
+        model_name = "models/deep_bingo_" + str(size) + "_final"
+        self.model = PPO2.load(model_name)
         
     def reset(self):
                
