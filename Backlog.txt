@@ -1,6 +1,9 @@
 Backend
 1. Report winning when player also wins - priority 1
-2. Display your cut bingo - priority 2
-3. Always player plays 1st
+2. Display your cut bingo - priority 2 
+3. Integration with Cosmos DB
 UI
 1. Build a simple react UI
+2. Always player plays 1st
+
+
