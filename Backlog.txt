@@ -1,0 +1,6 @@
+Backend
+1. Report winning when player also wins - priority 1
+2. Display your cut bingo - priority 2
+3. Always player plays 1st
+UI
+1. Build a simple react UI

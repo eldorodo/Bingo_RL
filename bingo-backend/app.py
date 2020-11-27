@@ -66,10 +66,6 @@ def bingo_play():
     gameid = data['game_id']
     pl_num = int(data['number_to_cut'])
 
-    if 'player_won' in request.json and data['player_won']:
-        msg = "Congrats! You won :)"
-        return jsonify(message = msg) 
-
     if gameid not in AllGamesDatabase:
         err_msg = f"Game id {gameid} not found. Valid Game ids: {AllGamesDatabase.keys()}"
         print(err_msg)
@@ -80,9 +76,22 @@ def bingo_play():
     obs, rewards, done, num_cut, bingo_curr, curr_strike = bingo_env_play.step(pl_num,"player_turn")
 
     if(done == True):
-        msg = "I won. Game over. Better luck next time"
-        return jsonify(message = msg) 
+        listOfNum = [] 
+        for i in range(bingo_env_play.size):
+            for j in range(bingo_env_play.size):
+                listOfNum.append(int(bingo_env_play.bingo[i,j])) 
 
+        msg = None
+        if 'player_won' in request.json and data['player_won']:
+            msg = "Congrats! I also won :)"
+        else:
+            msg = "I won. Game over. Better luck next time"
+        return jsonify(message = msg, bot_final = listOfNum)
+    
+    if 'player_won' in request.json and data['player_won']:
+        msg = "Congrats! :)"
+        return jsonify(message = msg)
+        
     return jsonify(message = "Turn received")
 
 # bot's play
@@ -109,8 +118,12 @@ def bingo_bot_play():
     obs, rewards, done, num_cut, bingo_curr, curr_strike = bingo_env_play.step(action, "comp_turn")
 
     if(done == True):
+        listOfNum = [] 
+        for i in range(bingo_env_play.size):
+            for j in range(bingo_env_play.size):
+                listOfNum.append(int(bingo_env_play.bingo[i,j])) 
         msg = "I won. Game over. Better luck next time"
-        return jsonify(number = int(num_cut), message = msg) 
+        return jsonify(number = int(num_cut), message = msg, bot_final = listOfNum) 
 
     return jsonify(number = int(num_cut), message = f"The number I am striking is {int(num_cut)}")
 
