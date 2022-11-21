@@ -3,4 +3,4 @@ flask_api==2.0
 gym==0.15.3
 numpy==1.18.1
 stable-baselines==2.10.0
-tensorflow==1.15
+tensorflow==2.9.3
